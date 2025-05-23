@@ -23,7 +23,7 @@ public class adminHome extends javax.swing.JFrame {
      */
     public adminHome() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
         dc = new datausercontroller(this);
     }
@@ -102,6 +102,11 @@ public class adminHome extends javax.swing.JFrame {
         btnCari.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnCari.setForeground(new java.awt.Color(0, 0, 0));
         btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 140, -1, -1));
 
         tabelUser.setBackground(new java.awt.Color(255, 255, 255));
@@ -159,6 +164,17 @@ public class adminHome extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
+        login loginFrame = new login();
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Apakah Anda yakin ingin logout?", "Konfirmasi Logout",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose();
+
+            
+            loginFrame.setVisible(true);
+        }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void JTxtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTxtSearchActionPerformed
@@ -174,6 +190,12 @@ public class adminHome extends javax.swing.JFrame {
         // TODO add your handling code here:
         dc.delete();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        // TODO add your handling code here:
+        String keyword = JTxtSearch.getText();
+        dc.cariuser(keyword);
+    }//GEN-LAST:event_btnCariActionPerformed
 
     /**
      * @param args the command line arguments

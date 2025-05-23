@@ -82,7 +82,6 @@ public class datausercontroller {
         modeltabeldatauser tableModel = new modeltabeldatauser(dataUserList);
         adminFrame.getTabelUser().setModel(tableModel);
 
-        // Sembunyikan kolom ID
         adminFrame.getTabelUser().getColumnModel().getColumn(0).setMinWidth(0);
         adminFrame.getTabelUser().getColumnModel().getColumn(0).setMaxWidth(0);
         adminFrame.getTabelUser().getColumnModel().getColumn(0).setWidth(0);
@@ -111,6 +110,28 @@ public class datausercontroller {
 
         isiTabel();
         JOptionPane.showMessageDialog(null, "Data berhasil dihapus.");
+    }
+    
+    public void cariuser(String keyword) {
+    try {
+            if (keyword.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Silakan masukkan kata kunci pencarian.");
+            } else {
+                List<dataUser> hasil = impldatauser.cari(keyword);
+                if (hasil.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Data dengan kata kunci tersebut tidak ditemukan.");
+                } else {
+                    modeltabeldatauser model = new modeltabeldatauser(hasil);
+                    adminFrame.getTabelUser().setModel(model);
+                }
+            } 
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mencari data: " + ex.getMessage());
+        }
+    
+        adminFrame.getTabelUser().getColumnModel().getColumn(0).setMinWidth(0);
+        adminFrame.getTabelUser().getColumnModel().getColumn(0).setMaxWidth(0);
+        adminFrame.getTabelUser().getColumnModel().getColumn(0).setWidth(0);
     }
 
 }

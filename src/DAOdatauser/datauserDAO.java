@@ -18,14 +18,12 @@ import java.util.logging.Logger;
  */
 public class datauserDAO implements datauserimplement {
 
-    Connection connection;
+    private final Connection connection;
+    private static final Logger LOGGER = Logger.getLogger(datauserDAO.class.getName());
 
     final String select = "SELECT * FROM user";
     final String insert = "INSERT INTO user (username, email_user, password_user) VALUES (?, ?, ?);";
     final String delete = "DELETE FROM user WHERE id_user = ?";
-
-
-    private static final Logger LOGGER = Logger.getLogger(datauserDAO.class.getName());
 
     public datauserDAO() {
         connection = connector.connection();
@@ -96,8 +94,28 @@ public class datauserDAO implements datauserimplement {
     }
 
     @Override
-    public void update(dataUser u) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public List<dataUser> cari(String keyword) {
+        List<dataUser> list = new ArrayList<>();
+        String sql = "SELECT * FROM user WHERE username LIKE ? OR email_user LIKE ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            String likeKeyword = "%" + keyword + "%";
+            ps.setString(1, likeKeyword);
+            ps.setString(2, likeKeyword);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    dataUser user = new dataUser();
+                    user.setId_user(rs.getInt("id_user"));
+                    user.setUsername(rs.getString("username"));
+                    user.setEmail_user(rs.getString("email_user"));
+                    list.add(user);
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Search failed", ex);
+        }
+
+        return list;
     }
 
     @Override
