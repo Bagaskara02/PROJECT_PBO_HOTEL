@@ -4,17 +4,28 @@
  */
 package hotelmanagementsystem;
 
+import controller.datausercontroller;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Bagaskara
  */
 public class adminHome extends javax.swing.JFrame {
 
+    datausercontroller dc;
+
     /**
      * Creates new form adminHome
      */
     public adminHome() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        dc = new datausercontroller(this);
     }
 
     /**
@@ -26,21 +37,143 @@ public class adminHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel2 = new javax.swing.JLabel();
+        btnExit = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        JTxtSearch = new javax.swing.JTextField();
+        btnCari = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelUser = new javax.swing.JTable();
+        btnTampil = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1366, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Algerian", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("SELAMAT DATANG ADMIN !");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+
+        btnExit.setBackground(new java.awt.Color(43, 33, 76));
+        btnExit.setForeground(new java.awt.Color(43, 33, 76));
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        btnExit.setBorderPainted(false);
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 30, -1, -1));
+
+        btnLogout.setBackground(new java.awt.Color(43, 33, 76));
+        btnLogout.setFont(new java.awt.Font("Poppins Black", 1, 12)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
+        btnLogout.setText("LOG OUT");
+        btnLogout.setBorderPainted(false);
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 30, -1, -1));
+
+        jLabel3.setBackground(new java.awt.Color(43, 33, 76));
+        jLabel3.setFont(new java.awt.Font("Poppins Black", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Cari Berdasarkan Username Atau Email");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 320, -1));
+
+        JTxtSearch.setBackground(new java.awt.Color(255, 255, 255));
+        JTxtSearch.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        JTxtSearch.setForeground(new java.awt.Color(0, 0, 0));
+        JTxtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTxtSearchActionPerformed(evt);
+            }
+        });
+        getContentPane().add(JTxtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 140, 320, -1));
+
+        btnCari.setBackground(new java.awt.Color(255, 255, 255));
+        btnCari.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnCari.setForeground(new java.awt.Color(0, 0, 0));
+        btnCari.setText("Cari");
+        getContentPane().add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 140, -1, -1));
+
+        tabelUser.setBackground(new java.awt.Color(255, 255, 255));
+        tabelUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        tabelUser.setForeground(new java.awt.Color(0, 0, 0));
+        tabelUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Username", "Email"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelUser);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 1290, -1));
+
+        btnTampil.setBackground(new java.awt.Color(255, 255, 255));
+        btnTampil.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnTampil.setForeground(new java.awt.Color(0, 0, 0));
+        btnTampil.setText("Tampilkan Semua");
+        btnTampil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTampilActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnTampil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 140, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Hapus");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 140, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bgHome.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin untuk menutup aplikasi ini?", "Pilih", JOptionPane.YES_NO_OPTION);
+        if (a == 0)
+            System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void JTxtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTxtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTxtSearchActionPerformed
+
+    private void btnTampilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTampilActionPerformed
+        // TODO add your handling code here:
+        dc.isiTabel();
+    }//GEN-LAST:event_btnTampilActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dc.delete();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,6 +210,67 @@ public class adminHome extends javax.swing.JFrame {
         });
     }
 
+    public JTextField getJTxtSearch() {
+        return JTxtSearch;
+    }
+
+    public void setJTxtSearch(JTextField JTxtSearch) {
+        this.JTxtSearch = JTxtSearch;
+    }
+
+    public JButton getBtnCari() {
+        return btnCari;
+    }
+
+    public void setBtnCari(JButton btnCari) {
+        this.btnCari = btnCari;
+    }
+
+    public JButton getBtnClear() {
+        return btnTampil;
+    }
+
+    public void setBtnClear(JButton btnClear) {
+        this.btnTampil = btnClear;
+    }
+
+    public JButton getBtnExit() {
+        return btnExit;
+    }
+
+    public void setBtnExit(JButton btnExit) {
+        this.btnExit = btnExit;
+    }
+
+    public JButton getBtnLogout() {
+        return btnLogout;
+    }
+
+    public void setBtnLogout(JButton btnLogout) {
+        this.btnLogout = btnLogout;
+    }
+
+    public JTable getTabelUser() {
+        return tabelUser;
+    }
+
+    public void setTabelUser(JTable tabelUser) {
+        this.tabelUser = tabelUser;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField JTxtSearch;
+    private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnTampil;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelUser;
     // End of variables declaration//GEN-END:variables
+
 }

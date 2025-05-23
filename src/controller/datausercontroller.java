@@ -11,50 +11,106 @@ import model.*;
 import hotelmanagementsystem.*;
 import javax.swing.JOptionPane;
 
-
 public class datausercontroller {
-    private signup frame;
+
+    private signup signupFrame;
+    private adminHome adminFrame;
+    private login loginFrame;
     private datauserimplement impldatauser;
     private List<dataUser> dataUserList;
 
     public datausercontroller(signup frame) {
-        this.frame = frame;
+        this.signupFrame = frame;
         this.impldatauser = new datauserDAO();
     }
-    
+
+    public datausercontroller(login frame) {
+        this.loginFrame = frame;
+        this.impldatauser = new datauserDAO();
+    }
+
+    public datausercontroller(adminHome frame) {
+        this.adminFrame = frame;
+        this.impldatauser = new datauserDAO();
+    }
+
     public datausercontroller() {
         this.impldatauser = new datauserDAO();
     }
 
     public void insert() {
+        if (signupFrame == null) {
+            return;
+        }
+
         try {
-            String username = frame.getJTxtUsername().getText().trim();
-            String email = frame.getJTxtEmail().getText().trim();
-            String password = new String(frame.getjPasswordField().getPassword()).trim();
+            String username = signupFrame.getJTxtUsername().getText().trim();
+            String email = signupFrame.getJTxtEmail().getText().trim();
+            String password = new String(signupFrame.getjPasswordField().getPassword()).trim();
 
             if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            
             dataUser user = new dataUser();
             user.setUsername(username);
             user.setEmail_user(email);
             user.setPassword_user(password);
 
-            
             impldatauser.insert(user);
 
-            
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan.");
+            signupFrame.dispose();
+            new login().setVisible(true);
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menyimpan data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     public dataUser login(String username, String password) {
         return impldatauser.getByUsernameAndPassword(username, password);
+    }
+
+    public void isiTabel() {
+        if (adminFrame == null) {
+            return;
+        }
+
+        dataUserList = impldatauser.getAll();
+        modeltabeldatauser tableModel = new modeltabeldatauser(dataUserList);
+        adminFrame.getTabelUser().setModel(tableModel);
+
+        // Sembunyikan kolom ID
+        adminFrame.getTabelUser().getColumnModel().getColumn(0).setMinWidth(0);
+        adminFrame.getTabelUser().getColumnModel().getColumn(0).setMaxWidth(0);
+        adminFrame.getTabelUser().getColumnModel().getColumn(0).setWidth(0);
+    }
+
+    public void delete() {
+        int selectedRow = adminFrame.getTabelUser().getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Pilih baris yang ingin dihapus terlebih dahulu.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null, "Yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        Object idObj = adminFrame.getTabelUser().getValueAt(selectedRow, 0);
+        if (idObj == null) {
+            JOptionPane.showMessageDialog(null, "ID user tidak ditemukan.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int id_user = Integer.parseInt(idObj.toString());
+        impldatauser.delete(id_user);
+
+        isiTabel();
+        JOptionPane.showMessageDialog(null, "Data berhasil dihapus.");
     }
 
 }

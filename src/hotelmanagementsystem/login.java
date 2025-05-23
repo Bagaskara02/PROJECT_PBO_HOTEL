@@ -5,10 +5,6 @@
 package hotelmanagementsystem;
 
 import controller.datausercontroller;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import model.*;
@@ -18,12 +14,15 @@ import model.*;
  * @author Bagaskara
  */
 public class login extends javax.swing.JFrame {
-
+    datausercontroller dc;
     /**
      * Creates new form login
      */
     public login() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        dc = new datausercontroller(this);
     }
 
     /**
@@ -154,6 +153,7 @@ public class login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        
         String username = JTxtUsername.getText().trim();
         String password = new String(jPasswordField.getPassword()).trim();
         
@@ -164,12 +164,14 @@ public class login extends javax.swing.JFrame {
         
         if(username.equals("admin") && password.equals("admin")){
             setVisible(false);
-            new adminHome().setVisible(true);
+            adminHome adminFrame = new adminHome();
+            datausercontroller adminController = new datausercontroller(adminFrame);
+            adminController.isiTabel();
+            adminFrame.setVisible(true);
             return;
         }
         
-            datausercontroller controller = new datausercontroller();
-            dataUser user = controller.login(username, password);
+            dataUser user = dc.login(username, password);
 
         if (user != null) {
             JOptionPane.showMessageDialog(null, "Login berhasil! Selamat datang, " + user.getUsername());
