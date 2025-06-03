@@ -300,7 +300,7 @@ public class userCheckout extends javax.swing.JFrame {
                  PreparedStatement pst = conn.prepareStatement(query)) {
 
             if (conn == null || conn.isClosed()) {
-                JOptionPane.showMessageDialog(this, "Connection is closed", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Koneksi ditutup", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -339,12 +339,12 @@ public class userCheckout extends javax.swing.JFrame {
                 jTextTotal.setText(String.valueOf(totalAmount));
 
             } else {
-                JOptionPane.showMessageDialog(this, "No active reservation found for this room", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Tidak ada reservasi aktif ditemukan untuk ruangan ini", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error while fetching data", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Kesalahan saat mengambil data", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCariActionPerformed
 
@@ -412,7 +412,7 @@ public class userCheckout extends javax.swing.JFrame {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error while fetching data", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Kesalahan saat mengambil data", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formComponentShown
 
@@ -425,7 +425,7 @@ public class userCheckout extends javax.swing.JFrame {
 
         // Validasi jika data belum lengkap
         if (roomNumber.isEmpty() || checkoutDate.isEmpty() || totalDaysText.isEmpty() || totalAmountText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields before proceeding.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Silakan isi semua kolom sebelum melanjutkan.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -440,8 +440,8 @@ public class userCheckout extends javax.swing.JFrame {
             // Query untuk update status room menjadi "not booked"
             String updateRoomStatusQuery = "UPDATE room SET status = 'Not booked' WHERE room_number = ?";
 
-            // Siapkan koneksi dan statement
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/projek_hotel", "root", ""); PreparedStatement pstReserve = conn.prepareStatement(updateReserveQuery); PreparedStatement pstRoom = conn.prepareStatement(updateRoomStatusQuery)) {
+            // Siapkan koneksi dan statement menggunakan connector.connection()
+            try (Connection conn = connector.connection(); PreparedStatement pstReserve = conn.prepareStatement(updateReserveQuery); PreparedStatement pstRoom = conn.prepareStatement(updateRoomStatusQuery)) {
 
                 // Set parameter query untuk update tabel reserve
                 pstReserve.setString(1, checkoutDate);  // Set tanggal checkout
@@ -459,16 +459,16 @@ public class userCheckout extends javax.swing.JFrame {
                 int affectedRowsRoom = pstRoom.executeUpdate();
 
                 if (affectedRowsReserve > 0 && affectedRowsRoom > 0) {
-                    JOptionPane.showMessageDialog(this, "Checkout successful! Room status updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Checkout Berhasil! Status kamar diperbarui.", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Checkout failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Checkout gagal. Silakan coba lagi", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Invalid input for total days or total amount.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Input tidak valid untuk total hari atau total jumlah.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCheckoutActionPerformed
 

@@ -43,12 +43,14 @@ public class forgotPassword extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTxtEmail = new javax.swing.JTextField();
         jTxtUsername = new javax.swing.JTextField();
-        jTxtNewPassword = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnSignup = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         btnCari = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jPasswordField = new javax.swing.JPasswordField();
+        jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,10 +89,6 @@ public class forgotPassword extends javax.swing.JFrame {
         jTxtUsername.setBackground(java.awt.Color.white);
         jTxtUsername.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         getContentPane().add(jTxtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 430, -1));
-
-        jTxtNewPassword.setBackground(java.awt.Color.white);
-        jTxtNewPassword.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(jTxtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, 430, -1));
 
         btnSave.setBackground(new java.awt.Color(255, 255, 255));
         btnSave.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -144,6 +142,27 @@ public class forgotPassword extends javax.swing.JFrame {
         });
         getContentPane().add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, 110, -1));
 
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 280, -1, -1));
+
+        jPasswordField.setBackground(new java.awt.Color(255, 255, 255));
+        jPasswordField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPasswordField.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, 430, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/visible.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 280, -1, -1));
+
         jLabel5.setBackground(java.awt.Color.white);
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,38 +174,56 @@ public class forgotPassword extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        String newPassword = jTxtNewPassword.getText();
+        String newPassword = new String(jPasswordField.getPassword()); 
+        String email = jTxtEmail.getText(); 
 
-    if (email == null || email.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Cari email terlebih dahulu.");
-        return;
-    }
-
-    if (newPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password baru tidak boleh kosong.");
-        return;
-    }
-
-    Connection connection = connector.connection();
-    String sql = "UPDATE user SET password_user = ? WHERE email_user = ?";
-
-    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, newPassword);
-        ps.setString(2, email);
-        int rowsAffected = ps.executeUpdate();
-
-        if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(null, "Password berhasil diperbarui.");
-            jTxtEmail.setText("");
-            jTxtUsername.setText("");
-            jTxtNewPassword.setText("");
-            email = null;
-        } else {
-            JOptionPane.showMessageDialog(null, "Gagal memperbarui password.");
+        if (email == null || email.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Cari email terlebih dahulu.");
+            return;
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menyimpan password: " + ex.getMessage());
-    }
+
+        if (newPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Password baru tidak boleh kosong.");
+            return;
+        }
+
+        String checkEmailQuery = "SELECT * FROM user WHERE email_user = ?";
+
+        try (Connection conn = connector.connection(); PreparedStatement pstCheckEmail = conn.prepareStatement(checkEmailQuery)) {
+
+            pstCheckEmail.setString(1, email);  
+
+            try (ResultSet rs = pstCheckEmail.executeQuery()) {
+                if (rs.next()) { 
+
+                    
+                    String updatePasswordQuery = "UPDATE user SET password_user = ? WHERE email_user = ?";
+                    try (PreparedStatement pstUpdatePassword = conn.prepareStatement(updatePasswordQuery)) {
+                        pstUpdatePassword.setString(1, newPassword);  
+                        pstUpdatePassword.setString(2, email);        
+
+                        
+                        int rowsUpdated = pstUpdatePassword.executeUpdate();
+
+                        
+                        if (rowsUpdated > 0) {
+                            JOptionPane.showMessageDialog(null, "Password berhasil diperbarui.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Gagal memperbarui password.");
+                        }
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat memperbarui password.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Email tidak ditemukan.");
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat memeriksa email.");
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -197,7 +234,7 @@ public class forgotPassword extends javax.swing.JFrame {
         loginFrame.setLocationRelativeTo(null);
         this.setVisible(false);
         loginFrame.setVisible(true);
-        
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
@@ -221,8 +258,8 @@ public class forgotPassword extends javax.swing.JFrame {
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         // TODO add your handling code here:
-        String email = jTxtEmail.getText();  
-        Connection con = connector.connection();  
+        String email = jTxtEmail.getText();
+        Connection con = connector.connection();
         Logger LOGGER = Logger.getLogger(forgotPassword.class.getName());
 
         dataUser user = null;
@@ -247,6 +284,20 @@ public class forgotPassword extends javax.swing.JFrame {
             LOGGER.log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCariActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        jPasswordField.setEchoChar('•');
+        jLabel8.setVisible(true);
+        jLabel7.setVisible(false);
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        // TODO add your handling code here:
+        jPasswordField.setEchoChar((char) 0);
+        jLabel8.setVisible(false);
+        jLabel7.setVisible(true);
+    }//GEN-LAST:event_jLabel8MouseClicked
 
     /**
      * @param args the command line arguments
@@ -341,11 +392,11 @@ public class forgotPassword extends javax.swing.JFrame {
     }
 
     public JTextField getjTxtNewPassword() {
-        return jTxtNewPassword;
+        return jPasswordField;
     }
 
     public void setjTxtNewPassword(JTextField jTxtNewPassword) {
-        this.jTxtNewPassword = jTxtNewPassword;
+        this.jPasswordField = jPasswordField;
     }
 
     public JTextField getjTxtUsername() {
@@ -368,8 +419,10 @@ public class forgotPassword extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JTextField jTxtEmail;
-    private javax.swing.JTextField jTxtNewPassword;
     private javax.swing.JTextField jTxtUsername;
     // End of variables declaration//GEN-END:variables
 }
