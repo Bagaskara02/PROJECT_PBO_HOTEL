@@ -56,6 +56,11 @@ public class login extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("Forgot Password ?");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 360, -1, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
@@ -127,7 +132,7 @@ public class login extends javax.swing.JFrame {
                 jLabel9MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 10, 50, 40));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 10, 30, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Artboard 1_1.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
@@ -144,11 +149,11 @@ public class login extends javax.swing.JFrame {
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         // TODO add your handling code here:
-        signup s = new signup();
-        s.setPreferredSize(new Dimension(1366, 768));
-        s.pack();
-        s.setVisible(true);
-        s.setLocationRelativeTo(null);
+        signup signupFrame = new signup();
+        signupFrame.setPreferredSize(new Dimension(1366, 768));
+        signupFrame.pack();
+        signupFrame.setVisible(true);
+        signupFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnSignupActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -196,6 +201,15 @@ public class login extends javax.swing.JFrame {
         System.exit(0);
         
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        forgotPassword ForgotFrame = new forgotPassword();
+        ForgotFrame.setPreferredSize(new Dimension(1366, 768));
+        ForgotFrame.pack();
+        ForgotFrame.setLocationRelativeTo(null);
+        ForgotFrame.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

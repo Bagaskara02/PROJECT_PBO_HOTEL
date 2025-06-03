@@ -2,7 +2,6 @@ package hotelmanagementsystem;
 
 import controller.datausercontroller;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.Dimension;
@@ -119,6 +118,11 @@ public class signup extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("Forgot Password ?");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, -1, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
@@ -165,7 +169,7 @@ public class signup extends javax.swing.JFrame {
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         // TODO add your handling code here:
-        dc.insert();
+        dc.signup();
         dc.isiTabel();
     }//GEN-LAST:event_btnSignupActionPerformed
 
@@ -189,6 +193,17 @@ public class signup extends javax.swing.JFrame {
         if(a==0)
         System.exit(0);
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        forgotPassword ForgotFrame = new forgotPassword();
+        ForgotFrame.setPreferredSize(new Dimension(1366, 768));
+        ForgotFrame.pack();
+        ForgotFrame.setLocationRelativeTo(null);
+        ForgotFrame.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

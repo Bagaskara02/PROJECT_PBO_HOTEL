@@ -15,20 +15,19 @@ public class connector {
      static Connection con;
     
     public static Connection connection(){
-        if (con==null) {
+         try {
+        if (con == null || con.isClosed()) {
             MysqlDataSource data = new MysqlDataSource();
             data.setDatabaseName("projek_hotel");
             data.setUser("root");
             data.setPassword("");
-            try {
-                con = data.getConnection();
-                System.out.println("Koneksi Berhasil");
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                System.out.println("Koneksi Gagal");
-            }
+            con = data.getConnection();
+            System.out.println("Koneksi Berhasil");
         }
-        
-        return con;
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        System.out.println("Koneksi Gagal");
+    }
+    return con;
     }
 }

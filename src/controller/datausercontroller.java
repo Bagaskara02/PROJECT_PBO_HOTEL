@@ -5,7 +5,7 @@
 package controller;
 
 import java.util.List;
-import DAOdatauser.datauserDAO;
+import DAOdata.datauserDAO;
 import DAOImplement.datauserimplement;
 import model.*;
 import hotelmanagementsystem.*;
@@ -15,7 +15,7 @@ public class datausercontroller {
 
     private signup signupFrame;
     private adminHome adminFrame;
-    private login loginFrame;
+    private userHome userFrame;
     private datauserimplement impldatauser;
     private List<dataUser> dataUserList;
 
@@ -25,7 +25,6 @@ public class datausercontroller {
     }
 
     public datausercontroller(login frame) {
-        this.loginFrame = frame;
         this.impldatauser = new datauserDAO();
     }
 
@@ -33,12 +32,17 @@ public class datausercontroller {
         this.adminFrame = frame;
         this.impldatauser = new datauserDAO();
     }
-
+    
+    public datausercontroller(userHome frame) {
+        this.userFrame = frame;
+        this.impldatauser = new datauserDAO();
+    }
+    
     public datausercontroller() {
         this.impldatauser = new datauserDAO();
     }
 
-    public void insert() {
+    public void signup() {
         if (signupFrame == null) {
             return;
         }

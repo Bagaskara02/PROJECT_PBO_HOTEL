@@ -4,17 +4,25 @@
  */
 package hotelmanagementsystem;
 
+import controller.datausercontroller;
+import java.awt.Dimension;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Bagaskara
  */
 public class userHome extends javax.swing.JFrame {
 
+    datausercontroller dc;
     /**
      * Creates new form Home
      */
     public userHome() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        dc = new datausercontroller(this);
     }
 
     /**
@@ -26,21 +34,108 @@ public class userHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btnCheckin = new javax.swing.JButton();
+        btnCheckout = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnCheckin.setBackground(new java.awt.Color(37, 39, 64));
+        btnCheckin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCheckin.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rooms.png"))); // NOI18N
+        btnCheckin.setText("CHECK-IN");
+        btnCheckin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckinActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCheckin, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
+
+        btnCheckout.setBackground(new java.awt.Color(37, 39, 64));
+        btnCheckout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCheckout.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Checkout&Payment.png"))); // NOI18N
+        btnCheckout.setText("CHECK-OUT");
+        btnCheckout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCheckout, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
+
+        btnLogout.setBackground(new java.awt.Color(37, 39, 64));
+        btnLogout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
+        btnLogout.setText("LOG OUT");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, -1, -1));
+
+        btnExit.setBackground(new java.awt.Color(37, 39, 64));
+        btnExit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 60, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bgHome.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin untuk menutup aplikasi ini?", "Pilih", JOptionPane.YES_NO_OPTION);
+        if (a == 0)
+            System.exit(0);
+        
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        login loginFrame = new login();
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Apakah Anda yakin ingin logout?", "Konfirmasi Logout",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose();
+            
+            loginFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckinActionPerformed
+        // TODO add your handling code here:
+        userCheckIn checkInFrame = new userCheckIn();
+        checkInFrame.setPreferredSize(new Dimension(1366, 768));
+        checkInFrame.pack();
+        checkInFrame.setVisible(true);
+        checkInFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnCheckinActionPerformed
+
+    private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
+        // TODO add your handling code here:
+        userCheckout checkOutFrame = new userCheckout();
+        checkOutFrame.setPreferredSize(new Dimension(1366, 768));
+        checkOutFrame.pack();
+        checkOutFrame.setVisible(true);
+        checkOutFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnCheckoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +174,10 @@ public class userHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCheckin;
+    private javax.swing.JButton btnCheckout;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

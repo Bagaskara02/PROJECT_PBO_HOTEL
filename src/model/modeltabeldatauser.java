@@ -30,14 +30,14 @@ public class modeltabeldatauser extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
+    public Object getValueAt(int row, int column) {
+        switch (column) {
             case 0:
-                return list.get(rowIndex).getId_user();
+                return list.get(row).getId_user();
             case 1:
-                return list.get(rowIndex).getUsername();
+                return list.get(row).getUsername();
             case 2:
-                return list.get(rowIndex).getEmail_user();
+                return list.get(row).getEmail_user();
             default:
                 return null;
         }

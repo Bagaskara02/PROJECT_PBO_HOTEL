@@ -5,7 +5,6 @@
 package hotelmanagementsystem;
 
 import java.awt.Dimension;
-import javax.swing.JFrame;
 /**
  *
  * @author Bagaskara

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAOdatauser;
+package DAOdata;
 
 import java.sql.*;
 import java.util.*;
@@ -41,7 +41,6 @@ public class datauserDAO implements datauserimplement {
             ResultSet rs = statement.getGeneratedKeys();
             while (rs.next()) {
                 u.setId_user(rs.getInt(1));
-
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -131,20 +130,20 @@ public class datauserDAO implements datauserimplement {
 
     @Override
     public List<dataUser> getAll() {
-        List<dataUser> du = new ArrayList<>();
+        List<dataUser> data = new ArrayList<>();
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(select);
             while (rs.next()) {
-                dataUser bu = new dataUser();
-                bu.setId_user(rs.getInt("id_user"));
-                bu.setUsername(rs.getString("username"));
-                bu.setEmail_user(rs.getString("email_user"));
-                du.add(bu);
+                dataUser user = new dataUser();
+                user.setId_user(rs.getInt("id_user"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail_user(rs.getString("email_user"));
+                data.add(user);
             }
         } catch (SQLException ex) {
             Logger.getLogger(datauserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return du;
+        return data;
     }
 }

@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 public class adminHome extends javax.swing.JFrame {
 
     datausercontroller dc;
-
     /**
      * Creates new form adminHome
      */
@@ -37,6 +36,7 @@ public class adminHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnManageRoom = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
@@ -53,12 +53,26 @@ public class adminHome extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Algerian", 1, 48)); // NOI18N
+        btnManageRoom.setBackground(new java.awt.Color(37, 39, 64));
+        btnManageRoom.setFont(new java.awt.Font("Poppins Black", 1, 14)); // NOI18N
+        btnManageRoom.setForeground(new java.awt.Color(255, 255, 255));
+        btnManageRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/journal-icon-55-64x64.png"))); // NOI18N
+        btnManageRoom.setText("MANAGE ROOM");
+        btnManageRoom.setBorderPainted(false);
+        btnManageRoom.setPreferredSize(new java.awt.Dimension(200, 111));
+        btnManageRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageRoomActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnManageRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 20, 230, 80));
+
+        jLabel2.setFont(new java.awt.Font("Poppins Black", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("SELAMAT DATANG ADMIN !");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
-        btnExit.setBackground(new java.awt.Color(43, 33, 76));
+        btnExit.setBackground(new java.awt.Color(37, 39, 64));
         btnExit.setForeground(new java.awt.Color(43, 33, 76));
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
         btnExit.setBorderPainted(false);
@@ -69,7 +83,7 @@ public class adminHome extends javax.swing.JFrame {
         });
         getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 30, -1, -1));
 
-        btnLogout.setBackground(new java.awt.Color(43, 33, 76));
+        btnLogout.setBackground(new java.awt.Color(37, 39, 64));
         btnLogout.setFont(new java.awt.Font("Poppins Black", 1, 12)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
@@ -80,12 +94,12 @@ public class adminHome extends javax.swing.JFrame {
                 btnLogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 30, -1, -1));
+        getContentPane().add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 30, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(43, 33, 76));
         jLabel3.setFont(new java.awt.Font("Poppins Black", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Cari Berdasarkan Username Atau Email");
+        jLabel3.setText("Cari Berdasarkan Username Atau Email :");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 320, -1));
 
         JTxtSearch.setBackground(new java.awt.Color(255, 255, 255));
@@ -171,7 +185,6 @@ public class adminHome extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             this.dispose();
-
             
             loginFrame.setVisible(true);
         }
@@ -196,6 +209,13 @@ public class adminHome extends javax.swing.JFrame {
         String keyword = JTxtSearch.getText();
         dc.cariuser(keyword);
     }//GEN-LAST:event_btnCariActionPerformed
+
+    private void btnManageRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRoomActionPerformed
+        // TODO add your handling code here:
+        
+        manageRoom roomFrame = new manageRoom();
+        roomFrame.setVisible(true);
+    }//GEN-LAST:event_btnManageRoomActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,6 +306,7 @@ public class adminHome extends javax.swing.JFrame {
     private javax.swing.JButton btnCari;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnManageRoom;
     private javax.swing.JButton btnTampil;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
