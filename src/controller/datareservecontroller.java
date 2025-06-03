@@ -32,14 +32,13 @@ public class datareservecontroller {
         loadAvailableRooms();
     }
     
-    public void isiTabel() { // For Check-Out
+    public void isiTabel() {
         if (checkInFrame == null) {
             return;
         }
         
         dataReserveList = impldatareserve.getAll();
         modeltabeldatareserve tableModel = new modeltabeldatareserve(dataReserveList);
-        // checkOutFrame.getTableReserve().setModel(tableModel); // For Check-Out
     }
     
     public void loadAvailableRooms() {
