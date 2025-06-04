@@ -17,6 +17,7 @@ public class dataroomDAO implements dataroomimplement {
     final String add = "INSERT INTO room (room_number, room_type, bed_size, price, status) VALUES (?, ?, ?, ?, 'Not Booked')";
     final String booked = "UPDATE room SET status = 'Booked' WHERE room_number = ?";
     final String getRoom = "SELECT * FROM room WHERE room_type = ? AND bed_size = ? AND status = 'Not Booked'";
+    final String delete = "DELETE FROM room where id_room=?";
 
     public dataroomDAO(){
         connection = connector.connection();
@@ -87,6 +88,18 @@ public class dataroomDAO implements dataroomimplement {
         }
         return data;
     }
+    
+    @Override
+    public void delete(int id_room) {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(delete);
+
+            statement.setInt(1, id_room);
+            statement.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     @Override
     public List<dataRoom> getRoombyInput(String type, String bed) {
@@ -113,4 +126,5 @@ public class dataroomDAO implements dataroomimplement {
 
         return data;
     }
+    
 }

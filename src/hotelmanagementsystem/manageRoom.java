@@ -5,6 +5,7 @@
 package hotelmanagementsystem;
 
 import controller.dataroomcontroller;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -17,15 +18,16 @@ import javax.swing.JTextField;
 public class manageRoom extends javax.swing.JFrame {
 
     dataroomcontroller dr;
+
     /**
      * Creates new form manageRoom
      */
     public manageRoom() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
         dr = new dataroomcontroller(this);
-        dr.isiTabel();  
+        dr.isiTabel();
     }
 
     /**
@@ -50,6 +52,7 @@ public class manageRoom extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextPrice = new javax.swing.JTextField();
         btnAddRoom = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,6 +67,8 @@ public class manageRoom extends javax.swing.JFrame {
         jLabel1.setText("MANAGE ROOM");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 23, -1, -1));
 
+        tabelRoom.setBackground(new java.awt.Color(255, 255, 255));
+        tabelRoom.setForeground(new java.awt.Color(0, 0, 0));
         tabelRoom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
@@ -72,6 +77,11 @@ public class manageRoom extends javax.swing.JFrame {
                 "Id Room", "Room Number", "Room Type", "Bed Size", "Price", "Status"
             }
         ));
+        tabelRoom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelRoomMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelRoom);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 135, 640, -1));
@@ -89,7 +99,9 @@ public class manageRoom extends javax.swing.JFrame {
         jLabel2.setText("Room Number");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 135, -1, -1));
 
-        jTextRoomNumber.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextRoomNumber.setBackground(new java.awt.Color(255, 255, 255));
+        jTextRoomNumber.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jTextRoomNumber.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(jTextRoomNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 164, 400, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -97,7 +109,9 @@ public class manageRoom extends javax.swing.JFrame {
         jLabel3.setText("Room Type");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 209, -1, -1));
 
-        jComboBoxRoomType.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jComboBoxRoomType.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBoxRoomType.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jComboBoxRoomType.setForeground(new java.awt.Color(0, 0, 0));
         jComboBoxRoomType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "Non-AC" }));
         getContentPane().add(jComboBoxRoomType, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 244, 400, -1));
 
@@ -106,7 +120,9 @@ public class manageRoom extends javax.swing.JFrame {
         jLabel4.setText("Bed Size");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 289, -1, -1));
 
-        jComboBoxBedSize.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jComboBoxBedSize.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBoxBedSize.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jComboBoxBedSize.setForeground(new java.awt.Color(0, 0, 0));
         jComboBoxBedSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Double", "King Size" }));
         getContentPane().add(jComboBoxBedSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 324, 400, -1));
 
@@ -115,17 +131,32 @@ public class manageRoom extends javax.swing.JFrame {
         jLabel5.setText("Price");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 369, -1, -1));
 
-        jTextPrice.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTextPrice.setBackground(new java.awt.Color(255, 255, 255));
+        jTextPrice.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jTextPrice.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(jTextPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 404, 400, -1));
 
-        btnAddRoom.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnAddRoom.setBackground(new java.awt.Color(255, 255, 255));
+        btnAddRoom.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnAddRoom.setForeground(new java.awt.Color(0, 0, 0));
         btnAddRoom.setText("Add Room");
         btnAddRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddRoomActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAddRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1048, 449, -1, -1));
+        getContentPane().add(btnAddRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 450, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Hapus");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 450, -1, -1));
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,6 +176,30 @@ public class manageRoom extends javax.swing.JFrame {
         dr.add();
         dr.isiTabel();
     }//GEN-LAST:event_btnAddRoomActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dr.delete();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tabelRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelRoomMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = tabelRoom.getSelectedRow();
+
+        if (selectedRow != -1) {
+            // Mengambil nilai dari tabel untuk kolom yang dipilih
+            Object valRoomNumber = tabelRoom.getValueAt(selectedRow, 1);  // Nomor Kamar
+            Object valRoomType = tabelRoom.getValueAt(selectedRow, 2);    // Tipe Kamar
+            Object valBedSize = tabelRoom.getValueAt(selectedRow, 3);     // Ukuran Tempat Tidur
+            Object valPrice = tabelRoom.getValueAt(selectedRow, 4);       // Harga Kamar
+
+            // Mengisi JTextField dengan nilai yang dipilih dari tabel
+            jTextRoomNumber.setText(valRoomNumber != null ? valRoomNumber.toString() : "");
+            jComboBoxRoomType.setSelectedItem(valRoomType != null ? valRoomType.toString() : "");
+            jComboBoxBedSize.setSelectedItem(valBedSize != null ? valBedSize.toString() : "");
+            jTextPrice.setText(valPrice != null ? valPrice.toString() : "");
+        }
+    }//GEN-LAST:event_tabelRoomMouseClicked
 
     /**
      * @param args the command line arguments
@@ -221,9 +276,26 @@ public class manageRoom extends javax.swing.JFrame {
         this.tabelRoom = tabelRoom;
     }
 
+    public JButton getBtnAddRoom() {
+        return btnAddRoom;
+    }
+
+    public void setBtnAddRoom(JButton btnAddRoom) {
+        this.btnAddRoom = btnAddRoom;
+    }
+
+    public JButton getBtnClose() {
+        return btnClose;
+    }
+
+    public void setBtnClose(JButton btnClose) {
+        this.btnClose = btnClose;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRoom;
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBoxBedSize;
     private javax.swing.JComboBox<String> jComboBoxRoomType;
     private javax.swing.JLabel jLabel1;

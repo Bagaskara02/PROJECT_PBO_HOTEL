@@ -18,6 +18,8 @@ public interface dataroomimplement {
     public List<dataRoom> getAll();
 
     public void updateRoomStatus(dataRoom room);
+    
+    public void delete(int id_room);
 
     public List<dataRoom> getRoombyInput(String type, String bed);
 }

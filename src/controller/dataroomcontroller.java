@@ -77,4 +77,36 @@ public class dataroomcontroller {
         // Simpan ke database
         impldataroom.add(room);
     }
+
+    public void delete() {
+        int selectedRow = roomFrame.getTabelRoom().getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Pilih baris yang ingin dihapus terlebih dahulu.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Menampilkan dialog konfirmasi penghapusan
+        int confirm = JOptionPane.showConfirmDialog(null, "Yakin ingin menghapus data kamar ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Mengambil ID kamar dari kolom pertama tabel
+        Object idObj = roomFrame.getTabelRoom().getValueAt(selectedRow, 0);  // ID kamar di kolom pertama
+        if (idObj == null) {
+            JOptionPane.showMessageDialog(null, "ID kamar tidak ditemukan.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int idRoom = Integer.parseInt(idObj.toString());  // Mengonversi ID kamar ke tipe integer
+
+        // Memanggil metode delete dari DAO untuk menghapus data kamar berdasarkan ID
+        impldataroom.delete(idRoom);
+
+        // Menyegarkan tabel setelah penghapusan
+        isiTabel();
+
+        // Menampilkan pesan setelah penghapusan berhasil
+        JOptionPane.showMessageDialog(null, "Kamar berhasil dihapus.");
+    }
 }
